@@ -1139,10 +1139,10 @@ function copyto!(B::AbstractVecOrMat{R}, ir_dest::AbstractRange{Int}, jr_dest::A
     return B
 end
 
-function copyto_axcheck!(dest, src)
-    @noinline checkaxs(axd, axs) = axd == axs || throw(DimensionMismatch("axes must agree, got $axd and $axs"))
+@noinline _checkaxs(axd, axs) = axd == axs || throw(DimensionMismatch("axes must agree, got $axd and $axs"))
 
-    checkaxs(axes(dest), axes(src))
+function copyto_axcheck!(dest, src)
+    _checkaxs(axes(dest), axes(src))
     copyto!(dest, src)
 end
 
