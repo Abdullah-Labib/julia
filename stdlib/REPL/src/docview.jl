@@ -733,7 +733,8 @@ function doc_completions(name, mod::Module=Main)
 
     # avoid messing up the order while inserting
     for i in reverse(idxs)
-        insert!(res, i, "$(only(ms[i].captures))\"\"")
+        m = ms[i]::AbstractMatch
+        insert!(res, i, "$(only(m.captures))\"\"")
     end
     res
 end
